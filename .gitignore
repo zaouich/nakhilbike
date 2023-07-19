@@ -6,3 +6,4 @@ client/node_modules/
 
 # Ignore node_modules in the server directory and all subdirectories
 server/node_modules/
+serverside/server.js
