@@ -1,0 +1,239 @@
+127.0.0.1:3000/api/v1/sales => this going to get all the sales | you can select max 2 buyer_card (recto verso)
+
+if there is no errors :  status Code = 200  ,
+{
+    "status": "success",
+    "date": {
+        "length": 19,
+        "sales": [
+            {
+                "_id": "64b4271166eb613d09378a35",
+                "name": "docker ",
+                "price": 120,
+                "date": "Wed Jan 01 2020 00:00:00 GMT+0100 (Central European Standard Time)",
+                "registrationNumber": "2020/01/01",
+                "buyer_firstname": "ahmed",
+                "buyer_lastname": "ali",
+                "buyer_card": [],
+                "__v": 0,
+                "id": "64b4271166eb613d09378a35"
+            },
+           
+            {
+                "_id": "64b43c63ca7cb2b682245d4f",
+                "name": "docker ",
+                "price": 120,
+                "date": "Wed Jan 01 2020 00:00:00 GMT+0100 (Central European Standard Time)",
+                "registrationNumber": "2020/01/01",
+                "buyer_firstname": "ahmed",
+                "buyer_lastname": "ali",
+                "buyer_card": [
+                    "1689533539148.jpeg"
+                ],
+                "__v": 0,
+                "id": "64b43c63ca7cb2b682245d4f"
+            },
+            
+            {
+                "_id": "64b44150e7b25e6d7d2e06ea",
+                "name": "docker ",
+                "price": 120,
+                "date": "Wed Jan 01 2020 00:00:00 GMT+0100 (Central European Standard Time)",
+                "registrationNumber": "2020/01/01",
+                "buyer_firstname": "ahmed",
+                "buyer_lastname": "ali",
+                "buyer_card": [
+                    "1689534800947.png",
+		    "1689534800959.png",
+                ],
+                "__v": 0,
+                "id": "64b44150e7b25e6d7d2e06ea"
+            },
+           
+            
+        ]
+    }
+
+}
+if there is some errors : status will not be success so in your react app just check the response status (i mean the axios res)
+
+//////////////////////////////////////////////////////////////////////
+
+for one sale  : 127.0.0.1:3000/api/v1/sales/64b4271166eb613d09378a31
+if there is no err : status code : 200
+{
+    "status": "success",
+    "data": {
+        "tour": {
+            "_id": "64b4271166eb613d09378a35",
+            "name": "docker ",
+            "price": 120,
+            "date": "Wed Jan 01 2020 00:00:00 GMT+0100 (Central European Standard Time)",
+            "registrationNumber": "2020/01/01",
+            "buyer_firstname": "ahmed",
+            "buyer_lastname": "ali",
+            "buyer_card": [],
+            "__v": 0,
+            "id": "64b4271166eb613d09378a35"
+        }
+    }
+}
+now if there is no sale with that id : status code 400: 
+{
+    "status": "fail",
+    "message": "no sale with this id"
+}
+
+again just check the status if its not success just get the error from axios response cause i have already handled the errors so you dont have to worry about it im going to give you an example of how it done
+
+import axios from 'axios';
+
+async function fetchData() {
+  try {
+    const response = await axios.get('127.0.0.1:3000/api/v1/sales/64b4271166eb613d09378a31');
+    
+    if (response.status === 200) {
+      // Success
+      console.log('Data:', response.data);
+    } else {
+      // Handle other status codes
+      console.log('Request failed with status:', response.status);
+    }
+  } catch (error) {
+    // Request failed or an error occurred
+    console.log('Error:', error.message);
+  }
+}
+
+fetchData();
+
+just try it its like magic 
+
+//////////////////////////////////////////////////////////////////////////// please note that all the next middleware going to give the same response if there is no sale with the specific id 
+
+post => 127.0.0.1:3000/api/v1/sales  (status code :  201)
+
+the body : not that all the fields are required unless the registrationNumber & the card images
+
+if there is no error : 
+{
+    "status": "success",
+    "data": {
+        "sale": {
+            "name": "docker ",
+            "price": 200,
+            "date": "2020-01-01",
+            "registrationNumber": "2020/01/01",
+            "buyer_firstname": "ahmed",
+            "buyer_lastname": "ali",
+            "buyer_card": [
+                "1689581720080.png"
+            ],
+            "_id": "64b4f898cb5262b9d7088c1a",
+            "__v": 0,
+            "id": "64b4f898cb5262b9d7088c1a"
+        }
+    }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+patch =>127.0.0.1:3000/api/v1/sales/64b4412ccd492d4111d0b3c9  (status code : 201)
+
+
+{
+    "status": "success",
+    "data": {
+        "updated": {
+            "_id": "64b4f898cb5262b9d7088c1a",
+            "name": "docker11",
+            "price": 200,
+            "date": "2020-01-01",
+            "registrationNumber": "2020/01/01",
+            "buyer_firstname": "ahmed",
+            "buyer_lastname": "ali",
+            "buyer_card": [
+                "1689581934554.jpeg"
+            ],
+            "__v": 0,
+            "id": "64b4f898cb5262b9d7088c1a"
+        }
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////
+delete => 127.0.0.1:3000/api/v1/sales/64b4412ccd492d4111d0b3c9   (status code : 204)
+
+so no res 
+////////////////////////////////////////////////////////////////////////////////
+get by the day
+ 
+get => 127.0.0.1:3000/api/v1/sales/getByDay/2020-01-01 (status code : 200)
+
+{
+    "status": "success",
+    "data": {
+        "length": 4,
+        "total": 720,
+        "sales": [
+            {
+                "_id": "64b4460de9fe8499dccfe3e3",
+                "name": "docker ",
+                "price": 120,
+                "date": "2020-01-01",
+                "registrationNumber": "2020/01/01",
+                "buyer_firstname": "ahmed",
+                "buyer_lastname": "ali",
+                "buyer_card": [
+                    "1689536013015.png"
+                ],
+                "__v": 0,
+                "id": "64b4460de9fe8499dccfe3e3"
+            },
+            {
+                "_id": "64b446e37c47a6a45c354655",
+                "name": "docker ",
+                "price": 200,
+                "date": "2020-01-01",
+                "registrationNumber": "2020/01/01",
+                "buyer_firstname": "ahmed",
+                "buyer_lastname": "ali",
+                "buyer_card": [
+                    "1689536227266.png"
+                ],
+                "__v": 0,
+                "id": "64b446e37c47a6a45c354655"
+            },
+            {
+                "_id": "64b4f86b139300465228c5b6",
+                "name": "docker ",
+                "price": 200,
+                "date": "2020-01-01",
+                "registrationNumber": "2020/01/01",
+                "buyer_firstname": "ahmed",
+                "buyer_lastname": "ali",
+                "buyer_card": [
+                    "1689581675450.png"
+                ],
+                "__v": 0,
+                "id": "64b4f86b139300465228c5b6"
+            },
+            {
+                "_id": "64b4f898cb5262b9d7088c1a",
+                "name": "docker11",
+                "price": 200,
+                "date": "2020-01-01",
+                "registrationNumber": "2020/01/01",
+                "buyer_firstname": "ahmed",
+                "buyer_lastname": "ali",
+                "buyer_card": [
+                    "1689581934554.jpeg"
+                ],
+                "__v": 0,
+                "id": "64b4f898cb5262b9d7088c1a"
+            }
+        ]
+    }
+}
+
+
