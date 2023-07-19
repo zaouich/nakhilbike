@@ -18,7 +18,8 @@ const StatShoose = ()=>{
         `${el.price}`.toLowerCase().includes(value) ||
         `${el.date}`.toLowerCase().includes(value) ||
         el.buyer_firstname.toLowerCase().includes(value) ||
-        el.buyer_lastname.toLowerCase().includes(value)
+        el.buyer_lastname.toLowerCase().includes(value)||
+        el.saleNumber.toLowerCase().includes(value)
       );
     });
     setFiltred(searchBy);
