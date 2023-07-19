@@ -125,7 +125,7 @@ const AllSales = () => {
           </Table>
         </div>
       ) : (
-        <Loading />
+        <></>
       )}
     </>
   );
