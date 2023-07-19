@@ -19,7 +19,9 @@ const StatShoose = ()=>{
         `${el.date}`.toLowerCase().includes(value) ||
         el.buyer_firstname.toLowerCase().includes(value) ||
         el.buyer_lastname.toLowerCase().includes(value)||
-        el.saleNumber.toLowerCase().includes(value)
+        el.saleNumber.toLowerCase().includes(value) ||
+        el.registrationNumber.toLowerCase().includes(value) 
+        
       );
     });
     setFiltred(searchBy);
