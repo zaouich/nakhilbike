@@ -41,10 +41,10 @@ const productHandler =(err,res)=>{
     }
 }
 const errorController = (err,req,res,next)=>{
+    console.log(err)
     if(process.env.NODE_ENV==="development"){
         return deveHandler(err,res)
     }else{
-        console.log(err.name)
         if(err.name ==="CastError") err = handleCastError(err)
         if(err.code==11000) err = handleDuplicateKey(err)
         if(err.name=="ValidationError") err = handleValidationError(err)

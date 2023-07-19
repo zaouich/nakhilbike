@@ -29,7 +29,7 @@ const SaleSchema = new mongoose.Schema({
     },
     buyer_lastname : {
         type : String,
-        required: [true,"المرجو ادخال اسم المشتري"],
+        required: [true,"المرجو ادخال لقب المشتري"],
 
     },
     buyer_card : [String],
