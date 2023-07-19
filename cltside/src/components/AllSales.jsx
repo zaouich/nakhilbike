@@ -61,14 +61,14 @@ const AllSales = () => {
       {loaded ? (
         <div className="container" dir="rtl">
           <div className="d-flex flex-wrap align-items-center justify-content-between">
-  <h1 className="text-right" >لائحة المبيعات</h1>
-  <InputGroup className="mb-3">
-    <FormControl
-      placeholder="البحث"
-      onChange={(e) => search(e.target.value)}
-    />
-  </InputGroup>
-</div>
+            <h1 className="text-right m-4 mt-5">لائحة المبيعات</h1>
+            <InputGroup className="mb-3">
+              <FormControl
+                placeholder="البحث"
+                onChange={(e) => search(e.target.value)}
+              />
+            </InputGroup>
+          </div>
 
           <Table striped bordered hover>
             <thead>
@@ -86,41 +86,37 @@ const AllSales = () => {
               </tr>
             </thead>
             <tbody>
-  {filtred.slice(0,  Number.MAX_VALUE).map((el) => {
-    return (
-      <tr key={el._id}>
-        <td></td>
-        <td>{el.name}</td>
-        <td>{el.price}</td>
-        <td>{el.date}</td>
-        <td>{el.registrationNumber}</td>
-        <td>{el.saleNumber}</td>
-        <td>{`${el.buyer_firstname}  ${el.buyer_lastname}`}</td>
-        
-        <td>
-          <Link to={`/edit/${el._id}`}>
-            <Button variant="warning">تعديل</Button>
-          </Link>
-        </td>
-        <td>
-          <Button
-            variant="danger"
-            onClick={() => deleteElement(el._id)}
-          >
-            ❌
-          </Button>
-          
-        </td>
-        <td>
-          <Link to={`/show/${el._id}`}>
-          عرض المزيد
-          </Link>
-        </td>
-      </tr>
-    );
-  })}
-  
-</tbody>
+              {filtred.slice(0, Number.MAX_VALUE).map((el) => {
+                return (
+                  <tr key={el._id}>
+                    <td></td>
+                    <td>{el.name}</td>
+                    <td>{el.price}</td>
+                    <td>{el.date}</td>
+                    <td>{el.registrationNumber}</td>
+                    <td>{el.saleNumber}</td>
+                    <td>{`${el.buyer_firstname}  ${el.buyer_lastname}`}</td>
+
+                    <td>
+                      <Link to={`/edit/${el._id}`}>
+                        <Button variant="warning">تعديل</Button>
+                      </Link>
+                    </td>
+                    <td>
+                      <Button
+                        variant="danger"
+                        onClick={() => deleteElement(el._id)}
+                      >
+                        ❌
+                      </Button>
+                    </td>
+                    <td>
+                      <Link to={`/show/${el._id}`}>عرض المزيد</Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </Table>
         </div>
       ) : (
