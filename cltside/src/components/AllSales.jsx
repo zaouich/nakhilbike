@@ -27,7 +27,9 @@ const AllSales = () => {
         `${el.price}`.toLowerCase().includes(value) ||
         `${el.date}`.toLowerCase().includes(value) ||
         el.buyer_firstname.toLowerCase().includes(value) ||
-        el.buyer_lastname.toLowerCase().includes(value)
+        el.buyer_lastname.toLowerCase().includes(value) ||
+        el.saleNumber.toLowerCase().includes(value) ||
+        el.registrationNumber.toLowerCase().includes(value)
       );
     });
     setFiltred(searchBy);
@@ -61,7 +63,7 @@ const AllSales = () => {
       {loaded ? (
         <div className="container" dir="rtl">
           <div className="d-flex flex-wrap align-items-center justify-content-between">
-            <h1 className="text-right m-4 mt-5">لائحة المبيعات</h1>
+            <h1 className="text-right mt-5">لائحة المبيعات</h1>
             <InputGroup className="mb-3">
               <FormControl
                 placeholder="البحث"
@@ -120,7 +122,7 @@ const AllSales = () => {
           </Table>
         </div>
       ) : (
-        <Loading />
+        <></>
       )}
     </>
   );
