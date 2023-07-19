@@ -1,6 +1,9 @@
 const Loading = ()=>{
     return <>
-        <h1>loading......</h1>
+    <div dir="rtl">
+
+        <h1>المرجو الانتضار</h1>
+    </div>
     </>
 }
 export default Loading
