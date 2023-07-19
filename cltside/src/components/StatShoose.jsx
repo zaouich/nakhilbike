@@ -69,7 +69,6 @@ const StatShoose = ()=>{
                 const day = String(date_.getDate()).padStart(2, '0');
                 setDate(`${year}-${month}-${day}`)
               
-            alert(`http://127.0.0.1:3000/api/v1/sales/getByDay/${date}`)
             setLoaded(true)
             axios
       .get(`http://127.0.0.1:3000/api/v1/sales/getByDay/${date}`)
