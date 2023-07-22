@@ -2,16 +2,16 @@ import axios from "axios";
 import { useState } from "react";
 
 const AddSale = () => {
-  const [sale, setSale] = useState({});
   const [name, setName] = useState("");
   const [saleNumber, setSaleNumber] = useState("");
-
   const [price, setPrice] = useState("");
   const [date, setDate] = useState("");
   const [registrationNumber, setRegistrationNumber] = useState("");
   const [buyer_firstname, setBuyer_firstname] = useState("");
   const [buyer_lastname, setBuyer_lastname] = useState("");
   const [files, setFiles] = useState([]);
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [numOfMonths, setNumOfMonths] = useState("");
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -36,24 +36,49 @@ const AddSale = () => {
   const handleBuyerLastnameChange = (e) => {
     setBuyer_lastname(e.target.value);
   };
+
   const handleSaleNumber = (e) => {
     setSaleNumber(e.target.value);
   };
+
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     setFiles(selectedFiles);
   };
 
+  const handlePaymentMethodChange = (e) => {
+    setPaymentMethod(e.target.value);
+  };
+
+  const handleNumOfMonthsChange = (e) => {
+    setNumOfMonths(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!paymentMethod) {
+      alert("المرجو اختيار طريقة الدفع");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", name);
-    formData.append("price", price);
+    formData.append("paymentType", paymentMethod);
+
+    if (paymentMethod === "full_payment") {
+      formData.append("price", price);
+    } else if (paymentMethod === "credit_payment") {
+      formData.append("pricePerMonth", price);
+      formData.append("numOfMonths", numOfMonths);
+    }
+
     formData.append("date", date);
     formData.append("registrationNumber", registrationNumber);
     formData.append("buyer_firstname", buyer_firstname);
     formData.append("buyer_lastname", buyer_lastname);
     formData.append("saleNumber", saleNumber);
+
     files.forEach((file) => {
       formData.append("buyer_card", file);
     });
@@ -67,6 +92,56 @@ const AddSale = () => {
       .catch((err) => {
         alert(err.response.data.message);
       });
+  };
+
+  const renderPaymentFields = () => {
+    if (paymentMethod === "full_payment") {
+      return (
+        <div className="form-group mt-4">
+          <label htmlFor="price" className="mt-2">
+            السعر
+          </label>
+          <input
+            type="number"
+            onChange={handlePriceChange}
+            className="form-control mt-2"
+            id="price"
+            value={price}
+          />
+        </div>
+      );
+    } else if (paymentMethod === "credit_payment") {
+      return (
+        <>
+          <div className="form-group mt-4">
+            <label htmlFor="price_per_month" className="mt-2">
+              السعر لشهر
+            </label>
+            <input
+              type="number"
+              onChange={handlePriceChange}
+              className="form-control mt-2"
+              id="price_per_month"
+              value={price}
+            />
+          </div>
+          <div className="form-group mt-4">
+            <label htmlFor="num_of_months" className="mt-2">
+              عدد الأشهر
+            </label>
+            <input
+              type="number"
+              onChange={handleNumOfMonthsChange}
+              className="form-control mt-2"
+              id="num_of_months"
+              value={numOfMonths}
+            />
+          </div>
+        </>
+      );
+    } else {
+      return null;
+    }
   };
 
   return (
@@ -88,17 +163,21 @@ const AddSale = () => {
             />
           </div>
           <div className="form-group mt-4">
-            <label htmlFor="price" className="mt-2">
-              السعر
+            <label htmlFor="payment_method" className="mt-2">
+              طريقة الدفع
             </label>
-            <input
-              type="number"
-              onChange={handlePriceChange}
+            <select
+              onChange={handlePaymentMethodChange}
               className="form-control mt-2"
-              id="price"
-              value={price}
-            />
+              id="payment_method"
+              value={paymentMethod}
+            >
+              <option value="">اختر الطريقة</option>
+              <option value="full_payment">دفع المبلغ كامل</option>
+              <option value="credit_payment">الدفع بالكريدي</option>
+            </select>
           </div>
+          {renderPaymentFields()}
           <div className="form-group mt-4">
             <label htmlFor="date" className="mt-2">
               التاريخ
