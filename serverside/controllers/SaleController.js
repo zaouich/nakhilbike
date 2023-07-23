@@ -33,6 +33,7 @@ const postASale = catchAsync(async (req, res, next) => {
   if (paymentType === "full_payment") {
     saleData = {
       name,
+      paymentType,
       price,
       date,
       registrationNumber,
@@ -44,6 +45,7 @@ const postASale = catchAsync(async (req, res, next) => {
   } else if (paymentType === "credit_payment") {
     saleData = {
       name,
+      paymentType,
       pricePerMonth,
       numOfMonths,
       date,
@@ -86,6 +88,7 @@ const updateSale = catchAsync(async (req, res, next) => {
   if (paymentType === "full_payment") {
     updatedData = {
       name,
+      paymentType,
       price,
       date,
       registrationNumber,
@@ -97,6 +100,7 @@ const updateSale = catchAsync(async (req, res, next) => {
   } else if (paymentType === "credit_payment") {
     updatedData = {
       name,
+      paymentType,
       pricePerMonth,
       numOfMonths,
       date,
