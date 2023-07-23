@@ -3,3 +3,24 @@ body {
   font-family: "Amiri", serif;
   font-size: 110%;
 }
+/* Track */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar track */
+  height: 8px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color of the scrollbar handle */
+  border-radius: 3px; /* Rounded corners for the scrollbar handle */
+}
+
+/* On hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Color of the scrollbar handle on hover */
+}
+
+/* When scrollbar is being dragged */
+::-webkit-scrollbar-thumb:active {
+  background-color: #444; /* Color of the scrollbar handle when dragged */
+}

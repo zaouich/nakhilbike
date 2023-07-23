@@ -83,36 +83,34 @@ const AllSales = () => {
               />
             </InputGroup>
           </div>
-
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>الاسم</th>
-                <th>طريقة الدفع</th>
-                <th>التمن</th>
-                <th>عدد الأشهر في حالة الكريدي</th>
-                <th>التاريخ</th>
-                <th>رقم التسجيل</th>
-                <th>رقم الدراجة</th>
-                <th>المشتري</th>
-                <th></th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtred.slice(0, Number.MAX_VALUE).map((el) => {
-                return (
-                  <tr key={el._id}>
-                    <td></td>
-                    <td>{el.name}</td>
-                    <td>
-                      {el.paymentType == "credit_payment"
-                        ? "الدفع بالكريدي"
-                        : "دفع المبلغ كامل"}
-                    </td>
-                    <td>
+          <div className="table-responsive">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>الاسم</th>
+                  <th>طريقة الدفع</th>
+                  {/* <th>التمن</th>
+                <th>عدد الأشهر في حالة الكريدي</th> */}
+                  <th>التاريخ</th>
+                  <th>رقم التسجيل</th>
+                  <th>رقم الدراجة</th>
+                  <th>المشتري</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {filtred.slice(0, Number.MAX_VALUE).map((el) => {
+                  return (
+                    <tr key={el._id}>
+                      <td>{el.name}</td>
+                      <td>
+                        {el.paymentType == "credit_payment"
+                          ? "الدفع بالكريدي"
+                          : "دفع المبلغ كامل"}
+                      </td>
+                      {/* <td>
                       {el.paymentType == "credit_payment"
                         ? el.pricePerMonth
                         : el.price}
@@ -121,33 +119,34 @@ const AllSales = () => {
                       {el.paymentType == "credit_payment"
                         ? el.numOfMonths
                         : "لا يوجد كريدي"}
-                    </td>
-                    <td>{el.date}</td>
-                    <td>{el.registrationNumber}</td>
-                    <td>{el.saleNumber}</td>
-                    <td>{`${el.buyer_firstname}  ${el.buyer_lastname}`}</td>
+                    </td> */}
+                      <td>{el.date}</td>
+                      <td>{el.registrationNumber}</td>
+                      <td>{el.saleNumber}</td>
+                      <td>{`${el.buyer_firstname}  ${el.buyer_lastname}`}</td>
 
-                    <td>
-                      <Link to={`/edit/${el._id}`}>
-                        <Button variant="warning">تعديل</Button>
-                      </Link>
-                    </td>
-                    <td>
-                      <Button
-                        variant="danger"
-                        onClick={() => deleteElement(el._id)}
-                      >
-                        ❌
-                      </Button>
-                    </td>
-                    <td>
-                      <Link to={`/show/${el._id}`}>عرض المزيد</Link>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
+                      <td>
+                        <Link to={`/edit/${el._id}`}>
+                          <Button variant="warning">تعديل</Button>
+                        </Link>
+                      </td>
+                      <td>
+                        <Button
+                          variant="danger"
+                          onClick={() => deleteElement(el._id)}
+                        >
+                          ❌
+                        </Button>
+                      </td>
+                      <td>
+                        <Link to={`/show/${el._id}`}>عرض المزيد</Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </div>
         </div>
       ) : (
         <></>

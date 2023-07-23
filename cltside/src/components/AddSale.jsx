@@ -149,115 +149,120 @@ const AddSale = () => {
   };
 
   return (
-    <div className="container" dir="rtl">
-      <div className="d-flex flex-wrap align-items-center justify-content-between">
-        <h1 className="text-right m-4 mt-5">اظافة مبيعة</h1>
-      </div>
-      <div className="container p-4">
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <div className="form-group mt-4">
-            <label htmlFor="name" className="mt-2">
-              الاسم
-            </label>
-            <input
-              onChange={handleNameChange}
-              className="form-control mt-2"
-              id="name"
-              value={name}
-            />
-          </div>
-          <div className="form-group mt-4">
-            <label htmlFor="payment_method" className="mt-2">
-              طريقة الدفع
-            </label>
-            <select
-              onChange={handlePaymentMethodChange}
-              className="form-control mt-2"
-              id="payment_method"
-              value={paymentMethod}
-            >
-              <option value="">اختر الطريقة</option>
-              <option value="full_payment">دفع المبلغ كامل</option>
-              <option value="credit_payment">الدفع بالكريدي</option>
-            </select>
-          </div>
-          {renderPaymentFields()}
-          <div className="form-group mt-4">
-            <label htmlFor="date" className="mt-2">
-              التاريخ
-            </label>
-            <input
-              type="date"
-              onChange={handleDateChange}
-              className="form-control mt-2"
-              id="date"
-              value={date}
-            />
-          </div>
-          <div className="form-group mt-4">
-            <label htmlFor="registrationNumber" className="mt-2">
-              رقم التسجيل
-            </label>
-            <input
-              onChange={handleRegistrationNumberChange}
-              className="form-control mt-2"
-              id="registrationNumber"
-              value={registrationNumber}
-            />
-          </div>
-          <div className="form-group mt-4">
-            <label htmlFor="registrationNumber" className="mt-2">
-              رقم الدراجة
-            </label>
-            <input
-              onChange={handleSaleNumber}
-              className="form-control mt-2"
-              id="saleNumber"
-              value={saleNumber}
-            />
-          </div>
-          <div className="form-group mt-4">
-            <label htmlFor="buyer_firstname" className="mt-2">
-              اسم المشتري
-            </label>
-            <input
-              onChange={handleBuyerFirstnameChange}
-              className="form-control mt-2"
-              id="buyer_firstname"
-              value={buyer_firstname}
-            />
-          </div>
-          <div className="form-group mt-4">
-            <label htmlFor="buyer_lastname" className="mt-2">
-              لقب المشتري
-            </label>
-            <input
-              onChange={handleBuyerLastnameChange}
-              className="form-control mt-2"
-              id="buyer_lastname"
-              value={buyer_lastname}
-            />
-          </div>
+    <div className="container d-flex justify-content-center" dir="rtl">
+      <div
+        className="d-flex flex-wrap align-items-center justify-content-center p-4"
+        style={{ width: "50%" }}
+      >
+        <div className="d-flex flex-wrap align-items-center justify-content-between">
+          <h1 className="text-right m-4 mt-5">اظافة مبيعة</h1>
+        </div>
+        <div className="container p-4">
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <div className="form-group mt-4">
+              <label htmlFor="name" className="mt-2">
+                الاسم
+              </label>
+              <input
+                onChange={handleNameChange}
+                className="form-control mt-2"
+                id="name"
+                value={name}
+              />
+            </div>
+            <div className="form-group mt-4">
+              <label htmlFor="payment_method" className="mt-2">
+                طريقة الدفع
+              </label>
+              <select
+                onChange={handlePaymentMethodChange}
+                className="form-control mt-2"
+                id="payment_method"
+                value={paymentMethod}
+              >
+                <option value="">اختر الطريقة</option>
+                <option value="full_payment">دفع المبلغ كامل</option>
+                <option value="credit_payment">الدفع بالكريدي</option>
+              </select>
+            </div>
+            {renderPaymentFields()}
+            <div className="form-group mt-4">
+              <label htmlFor="date" className="mt-2">
+                التاريخ
+              </label>
+              <input
+                type="date"
+                onChange={handleDateChange}
+                className="form-control mt-2"
+                id="date"
+                value={date}
+              />
+            </div>
+            <div className="form-group mt-4">
+              <label htmlFor="registrationNumber" className="mt-2">
+                رقم التسجيل
+              </label>
+              <input
+                onChange={handleRegistrationNumberChange}
+                className="form-control mt-2"
+                id="registrationNumber"
+                value={registrationNumber}
+              />
+            </div>
+            <div className="form-group mt-4">
+              <label htmlFor="registrationNumber" className="mt-2">
+                رقم الدراجة
+              </label>
+              <input
+                onChange={handleSaleNumber}
+                className="form-control mt-2"
+                id="saleNumber"
+                value={saleNumber}
+              />
+            </div>
+            <div className="form-group mt-4">
+              <label htmlFor="buyer_firstname" className="mt-2">
+                اسم المشتري
+              </label>
+              <input
+                onChange={handleBuyerFirstnameChange}
+                className="form-control mt-2"
+                id="buyer_firstname"
+                value={buyer_firstname}
+              />
+            </div>
+            <div className="form-group mt-4">
+              <label htmlFor="buyer_lastname" className="mt-2">
+                لقب المشتري
+              </label>
+              <input
+                onChange={handleBuyerLastnameChange}
+                className="form-control mt-2"
+                id="buyer_lastname"
+                value={buyer_lastname}
+              />
+            </div>
 
-          <div className="form-group mt-4">
-            <label htmlFor="buyer_card" className="mt-2">
-              صور المشتري
-            </label>
-            <input
-              type="file"
-              onChange={handleFileChange}
-              className="form-control-file mt-2"
-              id="buyer_card"
-              multiple
-              accept="image/*"
-            />
-          </div>
+            <div className="form-group mt-4">
+              <label htmlFor="buyer_card" className="mt-2">
+                صور المشتري
+              </label>
+              <input
+                type="file"
+                onChange={handleFileChange}
+                className="form-control-file mt-2"
+                id="buyer_card"
+                multiple
+                accept="image/*"
+              />
+            </div>
 
-          <button type="submit" className="btn btn-primary mt-4">
-            {" "}
-            حفظ
-          </button>
-        </form>
+            <button type="submit" className="btn btn-primary mt-4">
+              {" "}
+              حفظ
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

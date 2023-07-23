@@ -88,91 +88,103 @@ const ShowSale = () => {
   };
 
   return (
-    <div className="container" dir="rtl">
-      <div className="d-flex flex-wrap align-items-center justify-content-between">
-        <h1 className="text-right m-4 mt-5">معلومات المبيعة</h1>
-      </div>
-      <div className="container p-4">
-        <div className="card mb-3">
-          <h5 className="card-header">الاسم</h5>
-          <div className="card-body">
-            <p className="card-text">{sale.name}</p>
-          </div>
+    <div className="container d-flex justify-content-center" dir="rtl">
+      <div
+        className="d-flex flex-wrap align-items-center justify-content-center p-4"
+        style={{ width: "50%" }}
+      >
+        <div className="d-flex flex-wrap align-items-center justify-content-between">
+          <h1 className="text-right m-4 mt-5">معلومات المبيعة</h1>
         </div>
-        <div className="card mb-3">
-          <h5 className="card-header">
-            {sale.paymentType == "full_payment"
-              ? "السعر كامل"
-              : "السعر لكل شهر"}
-          </h5>
-          <div className="card-body">
-            <p className="card-text">
+        <div className="container p-4">
+          <div className="card mb-3">
+            <h5 className="card-header">الاسم</h5>
+            <div className="card-body">
+              <p className="card-text">{sale.name}</p>
+            </div>
+          </div>
+          <div className="card mb-3">
+            <h5 className="card-header">
               {sale.paymentType == "full_payment"
-                ? sale.price
-                : sale.pricePerMonth}
-            </p>
+                ? "السعر كامل"
+                : "السعر لكل شهر"}
+            </h5>
+            <div className="card-body">
+              <p className="card-text">
+                {sale.paymentType == "full_payment"
+                  ? sale.price
+                  : sale.pricePerMonth}
+              </p>
+            </div>
           </div>
-        </div>
-        {renderMonths()}
-        <div className="card mb-3">
-          <h5 className="card-header">طريقة الدفع</h5>
-          <div className="card-body">
-            <p className="card-text">
-              {sale.paymentType == "full_payment"
-                ? "دفع المبلغ كامل"
-                : "الدفع بالكريدي"}
-            </p>
+          {renderMonths()}
+          <div className="card mb-3">
+            <h5 className="card-header">طريقة الدفع</h5>
+            <div className="card-body">
+              <p className="card-text">
+                {sale.paymentType == "full_payment"
+                  ? "دفع المبلغ كامل"
+                  : "الدفع بالكريدي"}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="card mb-3">
-          <h5 className="card-header">التاريخ</h5>
-          <div className="card-body">
-            <p className="card-text">{sale.date}</p>
+          <div className="card mb-3">
+            <h5 className="card-header">التاريخ</h5>
+            <div className="card-body">
+              <p className="card-text">{sale.date}</p>
+            </div>
           </div>
-        </div>
-        <div className="card mb-3">
-          <h5 className="card-header">رقم التسجيل</h5>
-          <div className="card-body">
-            <p className="card-text">{sale.registrationNumber}</p>
+          <div className="card mb-3">
+            <h5 className="card-header">رقم التسجيل</h5>
+            <div className="card-body">
+              <p className="card-text">{sale.registrationNumber}</p>
+            </div>
           </div>
-        </div>
-        <div className="card mb-3">
-          <h5 className="card-header">اسم المشتري</h5>
-          <div className="card-body">
-            <p className="card-text">{sale.buyer_firstname}</p>
+          <div className="card mb-3">
+            <h5 className="card-header">اسم المشتري</h5>
+            <div className="card-body">
+              <p className="card-text">{sale.buyer_firstname}</p>
+            </div>
           </div>
-        </div>
-        <div className="card mb-3">
-          <h5 className="card-header">لقب المشتري</h5>
-          <div className="card-body">
-            <p className="card-text">{sale.buyer_lastname}</p>
+          <div className="card mb-3">
+            <h5 className="card-header">لقب المشتري</h5>
+            <div className="card-body">
+              <p className="card-text">{sale.buyer_lastname}</p>
+            </div>
           </div>
-        </div>
-        <div className="card mb-3">
-          <h5 className="card-header">صور المشتري</h5>
-          <div className="card-body">
-            {isLoading ? (
-              <div>جاري تحميل الصور ... </div>
-            ) : (
-              <div className="row row-cols-3 g-5">
-                {resizedImages.map((smallImageUri, index) => {
-                  const imageUrl = `http://localhost:3000/static/imgs/card/${sale.buyer_card[index]}`;
+          <div className="card mb-3">
+            <h5 className="card-header">رقم الدراجة</h5>
+            <div className="card-body">
+              <p className="card-text">{sale.saleNumber}</p>
+            </div>
+          </div>
+          <div className="card mb-3">
+            <h5 className="card-header">صور المشتري</h5>
+            <div className="card-body">
+              {isLoading ? (
+                <div>جاري تحميل الصور ... </div>
+              ) : (
+                <div className="row row-cols-3 g-5">
+                  {resizedImages.map((smallImageUri, index) => {
+                    const imageUrl = `http://localhost:3000/static/imgs/card/${sale.buyer_card[index]}`;
 
-                  return (
-                    <div key={index}>
-                      <ModalImage
-                        small={smallImageUri}
-                        large={imageUrl}
-                        showRotate
-                        alt={`صورة ${index + 1}`}
-                        width={200}
-                        height={200}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+                    return (
+                      <div key={index}>
+                        <ModalImage
+                          small={smallImageUri}
+                          large={imageUrl}
+                          showRotate
+                          alt={`صورة ${index + 1}`}
+                          width={200}
+                          height={200}
+                          style={{ borderRadius: "10px" }}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

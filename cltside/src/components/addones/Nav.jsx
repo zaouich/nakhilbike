@@ -1,40 +1,49 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const Nav = () => {
+  const [isNavOpen, setNavOpen] = useState(false);
+
+  const handleNavToggle = () => {
+    setNavOpen(!isNavOpen);
+  };
+
   return (
     <>
-      <nav class="navbar navbar-dark bg-dark">
-        <div class="container">
+      <nav className="navbar navbar-dark bg-dark">
+        <div className="container">
           <h1>
-            <a class="navbar-brand" href="">
+            <Link className="navbar-brand" to="/">
               SIKLAN Moto
-            </a>
+            </Link>
           </h1>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
+            onClick={handleNavToggle}
+            aria-expanded={isNavOpen}
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <Link class="nav-link active" to="/">
+          <div
+            className={`collapse navbar-collapse ${isNavOpen ? "show" : ""}`}
+            id="navbarNav"
+          >
+            <ul className="navbar-nav">
+              <li className="nav-item">
+                <Link className="nav-link active" to="/">
                   الرئيسية
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to="/store">
+              <li className="nav-item">
+                <Link className="nav-link" to="/store">
                   اضافة مبيعة
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to="/select">
+              <li className="nav-item">
+                <Link className="nav-link" to="/select">
                   {" "}
                   الاحصائيات
                 </Link>
@@ -46,4 +55,5 @@ const Nav = () => {
     </>
   );
 };
+
 export default Nav;
