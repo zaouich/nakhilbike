@@ -117,7 +117,7 @@ const ShowSale = () => {
         <div className="card mb-3">
           <h5 className="card-header">صور المشتري</h5>
           <div className="card-body">
-            {isLoading ? ( // Render a loading indicator while the images are loading
+            {isLoading ? (
               <div>جاري تحميل الصور ... </div>
             ) : (
               <div className="row row-cols-3 g-5">
@@ -131,8 +131,8 @@ const ShowSale = () => {
                         large={imageUrl}
                         showRotate
                         alt={`صورة ${index + 1}`}
-                        width={200} // Set the desired width here
-                        height={200} // Set the desired height here
+                        width={200}
+                        height={200}
                       />
                     </div>
                   );
