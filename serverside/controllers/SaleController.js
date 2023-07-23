@@ -2,6 +2,7 @@ const multer = require("multer");
 const Sale = require("../models/SaleModel");
 const AppError = require("../utils/AppError");
 const catchAsync = require("../utils/catchAsync");
+
 const getAllSales = catchAsync(async (req, res, next) => {
   const sales = await Sale.find();
   res.status(200).json({
@@ -12,9 +13,8 @@ const getAllSales = catchAsync(async (req, res, next) => {
     },
   });
 });
-const postASale = catchAsync(async (req, res, next) => {
-  console.log(req.body.paymentType);
 
+const postASale = catchAsync(async (req, res, next) => {
   const files = req.files.map((el) => el.filename);
   const {
     name,
@@ -69,6 +69,7 @@ const postASale = catchAsync(async (req, res, next) => {
 });
 
 const updateSale = catchAsync(async (req, res, next) => {
+  console.log(req.body.paymentType);
   const id = req.params.id;
   const files = req.files.map((el) => el.filename);
   const {
@@ -83,6 +84,13 @@ const updateSale = catchAsync(async (req, res, next) => {
     buyer_firstname,
     saleNumber,
   } = req.body;
+
+  if (
+    !paymentType ||
+    (paymentType !== "full_payment" && paymentType !== "credit_payment")
+  ) {
+    return next(new AppError("Invalid payment type.", 400));
+  }
 
   let updatedData;
   if (paymentType === "full_payment") {
@@ -110,8 +118,6 @@ const updateSale = catchAsync(async (req, res, next) => {
       buyer_firstname,
       buyer_card: files,
     };
-  } else {
-    return next(new AppError("Invalid payment type.", 400));
   }
 
   const updated = await Sale.findOneAndUpdate({ _id: id }, updatedData, {
@@ -126,6 +132,7 @@ const updateSale = catchAsync(async (req, res, next) => {
     },
   });
 });
+
 const deleteSale = catchAsync(async (req, res, next) => {
   const toDelete = await Sale.findByIdAndDelete(req.params.id);
   if (!toDelete) return next(new AppError("no sale with this id", 400));
