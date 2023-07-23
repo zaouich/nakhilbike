@@ -5,6 +5,7 @@ const AddSale = () => {
   const [name, setName] = useState("");
   const [saleNumber, setSaleNumber] = useState("");
   const [price, setPrice] = useState("");
+  const [creditPrice, setCreditPrice] = useState("");
   const [date, setDate] = useState("");
   const [registrationNumber, setRegistrationNumber] = useState("");
   const [buyer_firstname, setBuyer_firstname] = useState("");
@@ -17,6 +18,9 @@ const AddSale = () => {
     setName(e.target.value);
   };
 
+  const handleCreditPriceChange = (e) => {
+    setCreditPrice(e.target.value);
+  };
   const handlePriceChange = (e) => {
     setPrice(e.target.value);
   };
@@ -69,7 +73,7 @@ const AddSale = () => {
     if (paymentMethod === "full_payment") {
       formData.append("price", price);
     } else if (paymentMethod === "credit_payment") {
-      formData.append("pricePerMonth", price);
+      formData.append("pricePerMonth", creditPrice);
       formData.append("numOfMonths", numOfMonths);
     }
 
@@ -119,10 +123,10 @@ const AddSale = () => {
             </label>
             <input
               type="number"
-              onChange={handlePriceChange}
+              onChange={handleCreditPriceChange}
               className="form-control mt-2"
               id="price_per_month"
-              value={price}
+              value={creditPrice}
             />
           </div>
           <div className="form-group mt-4">
