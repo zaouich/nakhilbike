@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, FormControl, InputGroup } from "react-bootstrap";
-import { redirect, useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 const EditSale = () => {
   const { id } = useParams();
@@ -14,6 +13,14 @@ const EditSale = () => {
   const [buyer_lastname, setBuyer_lastname] = useState("");
   const [files, setFiles] = useState([]);
   const [saleNumber, setSaleNumber] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [creditPrice, setCreditPrice] = useState("");
+
+  const [numOfMonths, setNumOfMonths] = useState("");
+
+  const handleCreditPriceChange = (e) => {
+    setCreditPrice(e.target.value);
+  };
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -38,13 +45,74 @@ const EditSale = () => {
   const handleBuyerLastnameChange = (e) => {
     setBuyer_lastname(e.target.value);
   };
+
   const handleSaleNumber = (e) => {
     setSaleNumber(e.target.value);
   };
+
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
     setFiles(selectedFiles);
   };
+
+  const handlePaymentMethodChange = (e) => {
+    setPaymentMethod(e.target.value);
+  };
+
+  const handleNumOfMonthsChange = (e) => {
+    setNumOfMonths(e.target.value);
+  };
+
+  const renderPaymentFields = () => {
+    if (paymentMethod === "full_payment") {
+      return (
+        <div className="form-group mt-4">
+          <label htmlFor="price" className="mt-2">
+            السعر
+          </label>
+          <input
+            type="number"
+            onChange={handlePriceChange}
+            className="form-control mt-2"
+            id="price"
+            value={price}
+          />
+        </div>
+      );
+    } else if (paymentMethod === "credit_payment") {
+      return (
+        <>
+          <div className="form-group mt-4">
+            <label htmlFor="price_per_month" className="mt-2">
+              السعر لشهر
+            </label>
+            <input
+              type="number"
+              onChange={handleCreditPriceChange}
+              className="form-control mt-2"
+              id="price_per_month"
+              value={creditPrice}
+            />
+          </div>
+          <div className="form-group mt-4">
+            <label htmlFor="num_of_months" className="mt-2">
+              عدد الأشهر
+            </label>
+            <input
+              type="number"
+              onChange={handleNumOfMonthsChange}
+              className="form-control mt-2"
+              id="num_of_months"
+              value={numOfMonths}
+            />
+          </div>
+        </>
+      );
+    } else {
+      return null;
+    }
+  };
+
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:3000/api/v1/sales/${id}`)
@@ -53,6 +121,8 @@ const EditSale = () => {
         setSale(sale);
         setName(sale.name);
         setPrice(sale.price);
+        setCreditPrice(sale.pricePerMonth);
+        setNumOfMonths(sale.numOfMonths);
         setDate(sale.date);
         setSaleNumber(sale.saleNumber);
         setRegistrationNumber(sale.registrationNumber);
@@ -60,18 +130,21 @@ const EditSale = () => {
         setBuyer_lastname(sale.buyer_lastname);
       })
       .catch((err) => alert(err.response.data.message));
-  }, [files]);
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("name", name);
+    formData.append("paymentType", paymentMethod);
     formData.append("price", price);
     formData.append("date", date);
     formData.append("registrationNumber", registrationNumber);
     formData.append("buyer_firstname", buyer_firstname);
     formData.append("buyer_lastname", buyer_lastname);
     formData.append("saleNumber", saleNumber);
+    formData.append("pricePerMonth", creditPrice);
+    formData.append("numOfMonths", numOfMonths);
 
     files.forEach((file) => {
       formData.append("buyer_card", file);
@@ -107,17 +180,21 @@ const EditSale = () => {
             />
           </div>
           <div className="form-group mt-4">
-            <label htmlFor="price" className="mt-2">
-              السعر
+            <label htmlFor="payment_method" className="mt-2">
+              طريقة الدفع
             </label>
-            <input
-              type="number"
-              onChange={handlePriceChange}
+            <select
+              onChange={handlePaymentMethodChange}
               className="form-control mt-2"
-              id="price"
-              value={price}
-            />
+              id="payment_method"
+              value={paymentMethod}
+            >
+              <option value="">اختر الطريقة</option>
+              <option value="full_payment">دفع المبلغ كامل</option>
+              <option value="credit_payment">الدفع بالكريدي</option>
+            </select>
           </div>
+          {renderPaymentFields()}
           <div className="form-group mt-4">
             <label htmlFor="date" className="mt-2">
               التاريخ
