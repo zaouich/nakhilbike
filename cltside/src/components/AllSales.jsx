@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Table, InputGroup, FormControl, Button } from "react-bootstrap";
-import Loading from "./Loading";
 
 const AllSales = () => {
   const [sales, setSales] = useState([]);
@@ -20,16 +19,29 @@ const AllSales = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  const getPaymentTypeCode = (displayedPaymentType) => {
+    return displayedPaymentType === "الدفع بالكريدي"
+      ? "credit_payment"
+      : "full_payment";
+  };
+
   const search = (value) => {
     var searchBy = sales.filter((el) => {
+      const paymentTypeCode = getPaymentTypeCode(el.paymentType); // Convert displayed payment type to code
+      const displayedPaymentType =
+        el.paymentType === "credit_payment"
+          ? "الدفع بالكريدي"
+          : "دفع المبلغ كامل";
       return (
-        el.name.toLowerCase().includes(value) ||
-        `${el.price}`.toLowerCase().includes(value) ||
-        `${el.date}`.toLowerCase().includes(value) ||
-        el.buyer_firstname.toLowerCase().includes(value) ||
-        el.buyer_lastname.toLowerCase().includes(value) ||
-        el.saleNumber.toLowerCase().includes(value) ||
-        el.registrationNumber.toLowerCase().includes(value)
+        el.name.toLowerCase().includes(value.toLowerCase()) ||
+        `${el.price}`.toLowerCase().includes(value.toLowerCase()) ||
+        `${el.date}`.toLowerCase().includes(value.toLowerCase()) ||
+        el.buyer_firstname.toLowerCase().includes(value.toLowerCase()) ||
+        el.buyer_lastname.toLowerCase().includes(value.toLowerCase()) ||
+        el.saleNumber.toLowerCase().includes(value.toLowerCase()) ||
+        el.registrationNumber.toLowerCase().includes(value.toLowerCase()) ||
+        displayedPaymentType.toLowerCase().includes(value.toLowerCase()) ||
+        paymentTypeCode.toLowerCase() === value.toLowerCase()
       );
     });
     setFiltred(searchBy);
@@ -77,7 +89,9 @@ const AllSales = () => {
               <tr>
                 <th>#</th>
                 <th>الاسم</th>
+                <th>طريقة الدفع</th>
                 <th>التمن</th>
+                <th>عدد الأشهر في حالة الكريدي</th>
                 <th>التاريخ</th>
                 <th>رقم التسجيل</th>
                 <th>رقم الدراجة</th>
@@ -93,7 +107,21 @@ const AllSales = () => {
                   <tr key={el._id}>
                     <td></td>
                     <td>{el.name}</td>
-                    <td>{el.price}</td>
+                    <td>
+                      {el.paymentType == "credit_payment"
+                        ? "الدفع بالكريدي"
+                        : "دفع المبلغ كامل"}
+                    </td>
+                    <td>
+                      {el.paymentType == "credit_payment"
+                        ? el.pricePerMonth
+                        : el.price}
+                    </td>
+                    <td>
+                      {el.paymentType == "credit_payment"
+                        ? el.numOfMonths
+                        : "لا يوجد كريدي"}
+                    </td>
                     <td>{el.date}</td>
                     <td>{el.registrationNumber}</td>
                     <td>{el.saleNumber}</td>
