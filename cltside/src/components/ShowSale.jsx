@@ -72,6 +72,21 @@ const ShowSale = () => {
       .catch((err) => alert(err.response.data.message));
   }, [id]);
 
+  const renderMonths = () => {
+    if (sale.paymentType === "credit_payment") {
+      return (
+        <div className="card mb-3">
+          <h5 className="card-header">عدد الأشهر</h5>
+          <div className="card-body">
+            <p className="card-text">{sale.numOfMonths}</p>
+          </div>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <div className="container" dir="rtl">
       <div className="d-flex flex-wrap align-items-center justify-content-between">
@@ -85,9 +100,28 @@ const ShowSale = () => {
           </div>
         </div>
         <div className="card mb-3">
-          <h5 className="card-header">السعر</h5>
+          <h5 className="card-header">
+            {sale.paymentType == "full_payment"
+              ? "السعر كامل"
+              : "السعر لكل شهر"}
+          </h5>
           <div className="card-body">
-            <p className="card-text">{sale.price}</p>
+            <p className="card-text">
+              {sale.paymentType == "full_payment"
+                ? sale.price
+                : sale.pricePerMonth}
+            </p>
+          </div>
+        </div>
+        {renderMonths()}
+        <div className="card mb-3">
+          <h5 className="card-header">طريقة الدفع</h5>
+          <div className="card-body">
+            <p className="card-text">
+              {sale.paymentType == "full_payment"
+                ? "دفع المبلغ كامل"
+                : "الدفع بالكريدي"}
+            </p>
           </div>
         </div>
         <div className="card mb-3">
