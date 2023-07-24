@@ -105,13 +105,13 @@ const ShowSale = () => {
           </div>
           <div className="card mb-3">
             <h5 className="card-header">
-              {sale.paymentType == "full_payment"
+              {sale.paymentType === "full_payment"
                 ? "السعر كامل"
                 : "السعر لكل شهر"}
             </h5>
             <div className="card-body">
               <p className="card-text">
-                {sale.paymentType == "full_payment"
+                {sale.paymentType === "full_payment"
                   ? sale.price
                   : sale.pricePerMonth}
               </p>
@@ -122,7 +122,7 @@ const ShowSale = () => {
             <h5 className="card-header">طريقة الدفع</h5>
             <div className="card-body">
               <p className="card-text">
-                {sale.paymentType == "full_payment"
+                {sale.paymentType === "full_payment"
                   ? "دفع المبلغ كامل"
                   : "الدفع بالكريدي"}
               </p>
